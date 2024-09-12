@@ -26,7 +26,7 @@ export default function TestMysql() {
         <button onClick={sendRequest}>Send request</button>
         <br />
         Полученные пользователи:
-        {user && user.map((item: any) => <p key={item.id}>{item.id} - {item.username} - {item.color}</p>)}
+        {user && user.map((item: { id: number, username: string, color: string; }) => <p key={item.id}>{item.id} - {item.username} - {item.color}</p>)}
       </section>
     </>
   );
