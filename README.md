@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Разбор кода
 
-## Getting Started
+## В папке ```/src``` находится **server.ts** он взят с документации **[NextJS](https://nextjs.org/docs/pages/building-your-application/configuring/custom-server)**
 
-First, run the development server:
+## В папке ```/pages``` находится **index.tsx** это **SSR компонент** потому что внутри есть функция 
+```ts
+export async function getServerSideProps() {
+  const [rows] = await connection.query('SELECT * FROM test_borya.users;');
+  if (!Array.isArray(rows)) return { props: { data: [] } };
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  return {
+    props: {
+      data: rows.map((row: any) => ({
+        ...row
+      })),
+    },
+  };
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Именно зарезервированная функция ``` getServerSideProps ``` дает понять что компонент является SSR
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## В папке ```/pages/api``` находится **mysql.ts** это компонент откуда начинается подключение к MySQL
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Так же в папке есть путь ```/mysql/get.tsx``` это обработка API к которому можно обратиться с помощью fetch
 
-## Learn More
+- ---
 
-To learn more about Next.js, take a look at the following resources:
+## В папке ```/pages/testmysql``` находится **index.tsx** и это как раз тот компонент который делает запрос через API ```/api/mysql/get```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Конец, спасибо за внимание <3
