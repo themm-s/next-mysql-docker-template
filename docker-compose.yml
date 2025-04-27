@@ -10,7 +10,7 @@ services:
     environment:
       - DATABASE_HOST=localhost
       - DATABASE_USER=root
-      - DATABASE_PASSWORD=142531
+      - DATABASE_PASSWORD=password
       - DATABASE_NAME=nextmysql
 
   db:
@@ -18,5 +18,5 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 142531
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: nextmysql
